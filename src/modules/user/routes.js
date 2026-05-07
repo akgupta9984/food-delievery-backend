@@ -10,7 +10,8 @@ const authorize = require('../../common/middleware/authorize');
 const router = Router();
 const guard = [authenticate];
 const customerGuard = [authenticate, authorize('customer')];
-
+//dashboard
+router.get('/dashboards', ...guard, controller.getDashboard);
 // Profile
 router.get('/me',                       ...guard,         controller.getProfile);
 router.patch('/me',                     ...guard,         validate(updateProfileSchema), controller.updateProfile);

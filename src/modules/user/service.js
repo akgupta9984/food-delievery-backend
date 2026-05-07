@@ -62,4 +62,22 @@ async function deleteAddress(userId, addressId) {
   await prisma.address.delete({ where: { id: addressId } });
 }
 
-module.exports = { getProfile, updateProfile, addAddress, deleteAddress };
+async function getDashboard(userId) {
+  const recentOrders = await prisma.order.findMany({
+    where: {userId},
+    take: 5,
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  const cartItems = await prisma.cart.count({
+    where: { userId },
+  });
+  return{
+    recentOrders,
+    cartItems,
+  };
+}
+
+module.exports = { getProfile, updateProfile, addAddress, deleteAddress,getDashboard, };

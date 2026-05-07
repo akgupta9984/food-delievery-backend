@@ -3,6 +3,18 @@
 const service = require('./service');
 const { success } = require('../../common/utils/response');
 
+
+/**GET / dahshboard */
+async function getDashboard(req,res,next) {
+  try{
+    const data = await service.getDashboard(req.user.id);
+
+    return success(res, 'Restaurant dashboard retrieved');
+
+  }catch (err) {
+next(err);
+  }
+}
 /** GET /restaurants */
 async function listRestaurants(req, res, next) {
   try {
@@ -95,5 +107,5 @@ async function updateMenuItem(req, res, next) {
 module.exports = {
   listRestaurants, getCategories, getBanners, searchRestaurants,
   getSearchHistory, deleteSearchEntry, clearSearchHistory,
-  getRestaurantDetails, addMenuItem, updateMenuItem,
+  getRestaurantDetails, addMenuItem, updateMenuItem,getDashboard,
 };

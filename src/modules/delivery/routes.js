@@ -23,10 +23,10 @@ router.get('/orders/active',          ...guard, controller.getActiveDelivery);
 router.get('/orders/history',         ...guard, controller.getDeliveryHistory);
 
 // ─── Order actions ────────────────────────────────────────────────────────────
-router.post('/:orderId/accept',       ...guard, validate(acceptOrderSchema),   controller.acceptOrder);
-router.post('/:orderId/reject',       ...guard, controller.rejectOrder);
-router.post('/:orderId/location',     ...guard, validate(updateLocationSchema), controller.updateLocation);
-router.post('/:orderId/complete',     ...guard, validate(completeOrderSchema),  controller.completeOrder);
+router.post('/orders/:orderId/accept', ...guard, validate(acceptOrderSchema), controller.acceptOrder);
+router.post('/orders/:orderId/reject', ...guard, controller.rejectOrder);
+router.post('/orders/:orderId/location', ...guard, validate(updateLocationSchema), controller.updateLocation);
+router.post('/orders/:orderId/complete', ...guard, validate(completeOrderSchema), controller.completeOrder);
 
 // ─── Profile ──────────────────────────────────────────────────────────────────
 router.get('/profile',                ...guard, controller.getFullProfile);

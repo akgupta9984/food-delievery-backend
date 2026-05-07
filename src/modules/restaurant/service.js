@@ -149,9 +149,30 @@ async function updateMenuItem(restaurantId, itemId, ownerId, data) {
 
   return prisma.menuItem.update({ where: { id: itemId }, data });
 }
+/**order status retrieved */
+async function getDashboard(restaurantId) {
+  
+  const totalOrders = await prisma.order.count({
+    where: {restaurantId,}
+  });
+
+  const pendingOrders = await prisma.order.count({
+    where: {restaurantId, status: 'PENDING',},
+  });
+
+  const completedOrder = await prisma.order.count({
+    where: {restaurantId, status: 'DELIVERED'},
+  });
+
+  return{
+    totalOrders,
+    pendingOrders,
+    completedOrder,
+  };
+}
 
 module.exports = {
   listRestaurants, searchRestaurants, getSearchHistory, deleteSearchEntry,
   clearSearchHistory, getCategories, getBanners, getRestaurantDetails,
-  addMenuItem, updateMenuItem,
+  addMenuItem, updateMenuItem,getDashboard,
 };

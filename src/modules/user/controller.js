@@ -6,6 +6,17 @@ const walletService = require('./wallet.service');
 const prisma = require('../../config/db');
 const { success } = require('../../common/utils/response');
 
+/**get dashboard data */
+async function getDashboard(req, res, next) {
+  try {
+    const data = await service.getDashboard(req.user.id);
+
+    return success(res, 'User dashboard retrieved', data);
+  } catch (err) {
+    next(err);
+  }
+}
+
 /** GET /users/me — profile with wallet balance + unread notification count */
 async function getProfile(req, res, next) {
   try {
@@ -90,5 +101,5 @@ module.exports = {
   getProfile, updateProfile,
   getAddresses, addAddress, deleteAddress,
   getFavorites, addFavorite, removeFavorite,
-  getWallet,
+  getWallet,getDashboard,
 };

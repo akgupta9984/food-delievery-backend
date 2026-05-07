@@ -9,10 +9,12 @@ const authorize = require('../../common/middleware/authorize');
 
 const router = Router();
 
+
 // Public
 router.get('/categories',              controller.getCategories);
 router.get('/banners',                 controller.getBanners);
 router.get('/search',                  controller.searchRestaurants);
+router.get('/dashboard',authenticate,authorize('restaurant_owner'),controller.getDashboard);
 router.get('/',                        controller.listRestaurants);
 router.get('/:id',                     controller.getRestaurantDetails);
 
